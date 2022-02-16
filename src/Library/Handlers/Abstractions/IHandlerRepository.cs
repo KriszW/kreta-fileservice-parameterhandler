@@ -9,6 +9,6 @@ namespace Kreta.FileService.ParameterHandler.Library.Handlers.Abstractions
 {
     public interface IHandlerRepository
     {
-        IParameterHandlerCommand GetCommand(string queryName, string queryValue);
+        IParameterHandlerCommandBase GetCommand(string queryName, string queryValue);
     }
 }

@@ -11,14 +11,14 @@ namespace Kreta.FileService.ParameterHandler.Library.Handlers
 {
     public class HandlerRepository : IHandlerRepository
     {
-        private readonly IEnumerable<IParameterHandlerCommand> _parameterHandlerCommands;
+        private readonly IEnumerable<IParameterHandlerCommandBase> _parameterHandlerCommands;
 
-        public HandlerRepository(IEnumerable<IParameterHandlerCommand> parameterHandlerCommands)
+        public HandlerRepository(IEnumerable<IParameterHandlerCommandBase> parameterHandlerCommands)
         {
             _parameterHandlerCommands = parameterHandlerCommands;
         }
 
-        public IParameterHandlerCommand GetCommand(string queryName, string queryValue)
+        public IParameterHandlerCommandBase GetCommand(string queryName, string queryValue)
         {
             var queryCommands = _parameterHandlerCommands.Where(command => command.QueryParameterName == queryName);
 

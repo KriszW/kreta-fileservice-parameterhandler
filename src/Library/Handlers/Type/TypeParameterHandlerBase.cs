@@ -9,6 +9,6 @@ namespace Kreta.FileService.ParameterHandler.Library.Handlers.Type
 {
     public class TypeParameterHandlerBase : IParameterHandlerBase
     {
-        public string QueryParameterName => throw new NotImplementedException();
+        public string QueryParameterName => "type";
     }
 }

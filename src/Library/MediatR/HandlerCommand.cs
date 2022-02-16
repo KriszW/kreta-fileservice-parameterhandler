@@ -1,4 +1,5 @@
 ﻿using Kreta.FileService.ParameterHandler.Library.Handlers.Abstractions;
+using Kreta.FileService.ParameterHandler.Library.Handlers.Entities;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -11,9 +12,9 @@ namespace Kreta.FileService.ParameterHandler.Library.MediatR
 {
     public static class HandlerCommand
     {
-        public record Request(IList<KeyValuePair<string, string>> QueryParameters) : IRequest;
+        public record Request(HandlerRequest HandlerRequest) : IRequest<Response>;
 
-        public class Handler : IRequestHandler<Request>
+        public class Handler : IRequestHandler<Request, Response>
         {
             private readonly IHandlerService _handlerService;
 
@@ -22,14 +23,14 @@ namespace Kreta.FileService.ParameterHandler.Library.MediatR
                 _handlerService = handlerService;
             }
 
-            public async Task<Unit> Handle(Request request, CancellationToken cancellationToken)
+            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                await _handlerService.InvokeCommandAsync(request.QueryParameters);
+                var response = await _handlerService.HandleParametersAsync(request.HandlerRequest);
 
-                return Unit.Value;
+                return new(response);
             }
         }
 
-        public record Response();
+        public record Response(HandlerResponse HandlerResponse);
     }
 }

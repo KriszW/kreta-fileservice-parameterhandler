@@ -1,4 +1,5 @@
 ﻿using Kreta.FileService.ParameterHandler.Library.Handlers.Abstractions;
+using Kreta.FileService.ParameterHandler.Library.Handlers.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,14 +17,20 @@ namespace Kreta.FileService.ParameterHandler.Library.Handlers
             _handlerRepository = handlerRepository;
         }
 
-        public async Task InvokeCommandAsync(IList<KeyValuePair<string, string>> queryParameters)
+        public async Task<HandlerResponse> HandleParametersAsync(HandlerRequest handlerRequest)
         {
-            foreach (var parameter in queryParameters)
+            var computedImage = handlerRequest.ImageData;
+
+            foreach (var parameter in handlerRequest.QueryParameters)
             {
                 var command = _handlerRepository.GetCommand(parameter.Key, parameter.Value);
 
-                await command.HandleAsync();
+                var computationResponse = await command.HandleAsync(new(computedImage));
+
+                computedImage = computationResponse.ComputedImageData;
             }
+
+            return new(computedImage);
         }
     }
 }

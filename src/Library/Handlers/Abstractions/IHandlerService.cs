@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Kreta.FileService.ParameterHandler.Library.Handlers.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace Kreta.FileService.ParameterHandler.Library.Handlers.Abstractions
 {
     public interface IHandlerService
     {
-        Task InvokeCommandAsync(IList<KeyValuePair<string, string>> queryParameters);
+        Task<HandlerResponse> HandleParametersAsync(HandlerRequest handlerRequest);
     }
 }

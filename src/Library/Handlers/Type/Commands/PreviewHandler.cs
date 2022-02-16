@@ -1,4 +1,5 @@
 ﻿using Kreta.FileService.ParameterHandler.Library.Abstractions;
+using Kreta.FileService.ParameterHandler.Library.Handlers.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,15 +8,14 @@ using System.Threading.Tasks;
 
 namespace Kreta.FileService.ParameterHandler.Library.Handlers.Type.Commands
 {
-    public class PreviewHandler : TypeParameterHandlerBase, IParameterHandlerCommand<PreviewHandler.Response>
+    public class PreviewHandler : TypeParameterHandlerBase, IParameterHandlerCommandBase
     {
-        public string QueryParameterValue => throw new NotImplementedException();
+        public string QueryParameterValue => "preview";
 
-        public Task<Response> HandleAsync()
+        public Task<CommandResponse> HandleAsync(CommandRequest request)
         {
-            throw new NotImplementedException();
+            request.ImageData[1] = 1;
+            return Task.FromResult(new CommandResponse(request.ImageData));
         }
-
-        public record Response();
     }
 }
