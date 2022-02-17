@@ -4,19 +4,27 @@ imports:
 jobs:
   server:
     source:
-      repository: https://github.com/dotnet/crank
+      repository: https://github.com/KriszW/kreta-fileservice-parameterhandler.git
       branchOrCommit: main
-      project: samples/hello/hello.csproj
+      project: src/TestUI/TestUI.csproj
 
 scenarios:
-  hello:
+  preview:
     application:
       job: server
     load:
       job: bombardier
       variables:
         serverPort: 5000
-        path: /
+        path: /api/Test?type=preview
+  normal:
+    application:
+      job: server
+    load:
+      job: bombardier
+      variables:
+        serverPort: 5000
+        path: /api/Test?type=normal
 
 profiles:
   local:
@@ -25,7 +33,7 @@ profiles:
     jobs: 
       application:
         endpoints: 
-          - http://localhost:5010
+          - http://localhost:5000
       load:
         endpoints: 
-          - http://localhost:5010
+          - http://localhost:5000
