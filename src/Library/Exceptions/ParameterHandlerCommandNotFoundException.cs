@@ -1,15 +1,14 @@
 ﻿using System;
-using System.Runtime.Serialization;
 
 namespace Kreta.FileService.ParameterHandler.Library.Exceptions
 {
-    public class QueryHandlerCommandNotFoundException : Exception
+    public class ParameterHandlerCommandNotFoundException : Exception
     {
         public string QueryName { get; }
 
         public string QueryValue { get; set; }
 
-        public QueryHandlerCommandNotFoundException(string message, string queryName, string queryValue) : base(message)
+        public ParameterHandlerCommandNotFoundException(string message, string queryName, string queryValue) : base(message)
         {
             QueryName = queryName;
             QueryValue = queryValue;

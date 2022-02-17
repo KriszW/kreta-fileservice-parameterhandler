@@ -1,4 +1,4 @@
-﻿using Kreta.FileService.ParameterHandler.Library.Abstractions;
+﻿using Kreta.FileService.ParameterHandler.Library.Handlers.Abstractions;
 using Kreta.FileService.ParameterHandler.Library.Handlers.Entities;
 using System;
 using System.Collections.Generic;
@@ -14,8 +14,7 @@ namespace Kreta.FileService.ParameterHandler.Library.Handlers.Type.Commands
 
         public Task<CommandResponse> HandleAsync(CommandRequest request)
         {
-            request.ImageData[0] = 1;
-            return Task.FromResult(new CommandResponse(request.ImageData));
+            return Task.FromResult(new CommandResponse(request.Image));
         }
     }
 }

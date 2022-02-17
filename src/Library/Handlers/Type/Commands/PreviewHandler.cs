@@ -1,10 +1,15 @@
-﻿using Kreta.FileService.ParameterHandler.Library.Abstractions;
-using Kreta.FileService.ParameterHandler.Library.Handlers.Entities;
+﻿using Kreta.FileService.ParameterHandler.Library.Handlers.Entities;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Processing;
+using SixLabors.ImageSharp.Formats.Png;
+using System.IO;
+using Kreta.FileService.ParameterHandler.Library.Handlers.Abstractions;
 
 namespace Kreta.FileService.ParameterHandler.Library.Handlers.Type.Commands
 {
@@ -12,10 +17,20 @@ namespace Kreta.FileService.ParameterHandler.Library.Handlers.Type.Commands
     {
         public string QueryParameterValue => "preview";
 
-        public Task<CommandResponse> HandleAsync(CommandRequest request)
+        public async Task<CommandResponse> HandleAsync(CommandRequest request)
         {
-            request.ImageData[1] = 1;
-            return Task.FromResult(new CommandResponse(request.ImageData));
+            var output = new MemoryStream();
+
+            request.Image.Position = 0;
+            var img = Image.Load(request.Image);
+
+            img.Mutate(x => x.Resize(300, 0));
+
+            img.Save(output, new PngEncoder());
+
+            await request.Image.CopyToAsync(output);
+            output.Position = 0;
+            return new(output);
         }
     }
 }

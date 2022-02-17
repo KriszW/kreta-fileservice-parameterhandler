@@ -1,9 +1,6 @@
 ﻿using Kreta.FileService.ParameterHandler.Library.Handlers.Abstractions;
 using Kreta.FileService.ParameterHandler.Library.Handlers.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace Kreta.FileService.ParameterHandler.Library.Handlers
@@ -19,7 +16,8 @@ namespace Kreta.FileService.ParameterHandler.Library.Handlers
 
         public async Task<HandlerResponse> HandleParametersAsync(HandlerRequest handlerRequest)
         {
-            var computedImage = handlerRequest.ImageData;
+            var computedImage = new MemoryStream();
+            await handlerRequest.Image.CopyToAsync(computedImage);
 
             foreach (var parameter in handlerRequest.QueryParameters)
             {
@@ -27,9 +25,10 @@ namespace Kreta.FileService.ParameterHandler.Library.Handlers
 
                 var computationResponse = await command.HandleAsync(new(computedImage));
 
-                computedImage = computationResponse.ComputedImageData;
+                await computationResponse.ComputedImage.CopyToAsync(computedImage);
             }
 
+            computedImage.Position = 0;
             return new(computedImage);
         }
     }

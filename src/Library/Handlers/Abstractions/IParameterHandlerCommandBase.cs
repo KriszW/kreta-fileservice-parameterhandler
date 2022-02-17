@@ -1,7 +1,7 @@
 ﻿using Kreta.FileService.ParameterHandler.Library.Handlers.Entities;
 using System.Threading.Tasks;
 
-namespace Kreta.FileService.ParameterHandler.Library.Abstractions
+namespace Kreta.FileService.ParameterHandler.Library.Handlers.Abstractions
 {
     public interface IParameterHandlerCommandBase : IParameterHandlerBase
     {

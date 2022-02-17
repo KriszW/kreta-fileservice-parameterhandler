@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Kreta.FileService.ParameterHandler.Library.Abstractions
+namespace Kreta.FileService.ParameterHandler.Library.Handlers.Abstractions
 {
     public interface IParameterHandlerBase
     {
