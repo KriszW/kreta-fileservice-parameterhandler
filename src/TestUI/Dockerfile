@@ -6,10 +6,12 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["TestUI/TestUI.csproj", "TestUI/"]
-RUN dotnet restore "TestUI/TestUI.csproj"
+COPY ["src/TestUI/TestUI.csproj", "src/TestUI/"]
+COPY ["src/Library/Library.csproj", "src/Library/"]
+COPY ["src/Caching/Caching.csproj", "src/Caching/"]
+RUN dotnet restore "src/TestUI/TestUI.csproj"
 COPY . .
-WORKDIR "/src/TestUI"
+WORKDIR "/src/src/TestUI"
 RUN dotnet build "TestUI.csproj" -c Release -o /app/build
 
 FROM build AS publish
