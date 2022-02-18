@@ -24,8 +24,6 @@ namespace TestUI.Controllers
         [HttpGet]
         public async Task<IActionResult> Get([FromQuery] string type = "preview")
         {
-            Console.WriteLine($"{CreateUniqueURL()} accessed from controller");
-
             var queryParameters = Request.Query.Select(m => new KeyValuePair<string, string>(m.Key, m.Value.FirstOrDefault()!)).ToList();
 
             using var image = System.IO.File.OpenRead("TestData/test.jpg");

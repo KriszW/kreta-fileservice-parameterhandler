@@ -25,8 +25,6 @@ namespace Kreta.FileService.ParameterHandler.Caching.Middleware
 
             if (response != default)
             {
-                Console.WriteLine($"{key} accessed from caching middleware");
-
                 context.Response.StatusCode = 200;
                 context.Response.ContentType = response.ContentType;
 
