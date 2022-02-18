@@ -1,0 +1,2 @@
+crank --config benchmark.yml --scenario preview --profile local --json Results\preview.json --application.options.displayOutput true
+crank --config benchmark.yml --scenario normal --profile local --json Results\normal.json --application.options.displayOutput true
